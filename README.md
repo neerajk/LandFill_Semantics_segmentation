@@ -1,20 +1,40 @@
 # Automatic Detection of Landfill Using Deep Learning
 
-Landfill dataset can be accessed from:\
-Dropbox : Please drop me an e-mail at anupamar228@gmail.com and I will provide the link to access the dataset folder \
-Report available at: https://www.dropbox.com/sh/4hhtqy35vtape6w/AAA7EC3jIY_u6VWdCHeiLJYla?dl=0
 
-1. Comparative result of all the algorithms
-![ComparativeResult](https://github.com/AnupamaRajkumar/LandfillDetection_SemanticSegmentation/blob/main/Results/SegmentationResults1.JPG)
 
-2. Segmentation result with VGG16-FCN\
-![VGG16FCN](https://github.com/AnupamaRajkumar/LandfillDetection_SemanticSegmentation/blob/main/Results/SegmentationResults_VGG16FCN.JPG)
+## Local Run (ResNet34-FCN)
 
-3. Segmentation result with VGG16-UNet\
-![VGG16FCN](https://github.com/AnupamaRajkumar/LandfillDetection_SemanticSegmentation/blob/main/Results/SegmentationResults_VGG16UNet.JPG) 
+The original scripts in `Code/Source` are notebook exports and include Colab-only commands.  
+Use the local runner below instead:
 
-4. Segmentation result with ResNet34-FCN\
-![ResNet34FCN](https://github.com/AnupamaRajkumar/LandfillDetection_SemanticSegmentation/blob/main/Results/SegmentationResults_ResNet34FCN.JPG)
+`Code/Source/run_paper_resnet_fcn.py`
 
-5. Segmentation result with ResNet34-UNet\
-![ResNet34FCN](https://github.com/AnupamaRajkumar/LandfillDetection_SemanticSegmentation/blob/main/Results/SegmentationResults_ResNet34UNet.JPG)
+### Install
+
+```bash
+pip install -r Code/Source/requirements_runner.txt
+```
+
+### Train
+
+```bash
+python Code/Source/run_paper_resnet_fcn.py \
+  --images-dir /ABS/PATH/HR_TIF_Files \
+  --labels-csv /ABS/PATH/PanSharpenedData.csv \
+  --json-dir /ABS/PATH/LandfillCoordPolygons \
+  --output-dir /ABS/PATH/runs/resnet34_fcn \
+  --num-workers 3 \
+  --torch-threads 3 \
+  --max-ram-gb 11 \
+  --epochs 50 \
+  --batch-size 4
+```
+
+### Outputs
+
+- `best_resnet34_fcn.pth` (best validation checkpoint)
+- `metrics.csv` (epoch-wise training/validation metrics)
+- `sample_predictions.png` (quick qualitative validation preview)
+
+For implementation notes and mapping to the original thesis code, see:
+`Code/Source/PAPER_CODE_ANALYSIS.md`

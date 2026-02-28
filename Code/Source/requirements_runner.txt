@@ -1,0 +1,7 @@
+torch
+torchvision
+numpy
+pandas
+rasterio
+scikit-learn
+matplotlib
